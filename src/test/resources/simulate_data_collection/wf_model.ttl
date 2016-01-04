@@ -1,11 +1,11 @@
 ## filename: wf_model.ttl
 
-@base <http://yesworkflow.org/0000000000/simulate_data_collection/>
-
-@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix p1:   <http://dataone.org/ns/provone#> .
+BASE         <http://yesworkflow.org/0000000000/simulate_data_collection/>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX p1:   <http://dataone.org/ns/provone#>
+PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
 
 #####################################################################################################################################
 #      simulate_data_collection                                                                                                     #
@@ -22,7 +22,9 @@
                         <simulate_data_collection#run_log_port> ,
                         <simulate_data_collection#collection_log_port> ,
                         <simulate_data_collection#rejection_log_port> ;
-    p1:hasSubProgram    <simulate_data_collection/initialize_run> ,
+    p1:hasSubProgram    <collect_next_image> ,
+                        <transform_image> ,
+                        <simulate_data_collection/initialize_run> ,
                         <simulate_data_collection/load_screening_results> ,
                         <simulate_data_collection/calculate_strategy> ,
                         <simulate_data_collection/log_rejected_sample> ,
@@ -143,4 +145,13 @@
                         <simulate_data_collection/calculate_strategy#rejectedsample_port> ;
     p1:hasOutPort       <simulate_data_collection/load_screening_results#rejection_log_port> .
 
+<collect_next_image>
+    rdf:type            p1:Program ;
+    rdf:type            yw:Function ;
+    rdfs:label          "collect_next_image" .
+
+<transform_image>
+    rdf:type            p1:Program ;
+    rdf:type            yw:Function ;
+    rdfs:label          "transform_image" .
 

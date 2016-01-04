@@ -5,3 +5,15 @@ mq2: What is the name and description of the top-level workflow?
 =====================================================================================================================
 | "simulate_data_collection" | "Workflow for collecting diffraction data from high quality crystals in a cassette." |
 ---------------------------------------------------------------------------------------------------------------------
+
+What are the names of the programs comprising the top-level workflow?
+----------------------------
+| name                     |
+============================
+| "transform_image"        |
+| "initialize_run"         |
+| "calculate_strategy"     |
+| "load_screening_results" |
+| "log_rejected_sample"    |
+| "collect_next_image"     |
+----------------------------
