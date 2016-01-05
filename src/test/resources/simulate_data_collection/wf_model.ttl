@@ -22,17 +22,13 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
                         <simulate_data_collection#run_log_port> ,
                         <simulate_data_collection#collection_log_port> ,
                         <simulate_data_collection#rejection_log_port> ;
-    p1:hasSubProgram    <collect_next_image> ,
-                        <transform_image> ,
-                        <simulate_data_collection/initialize_run> ,
+    p1:hasSubProgram    <simulate_data_collection/initialize_run> ,
                         <simulate_data_collection/load_screening_results> ,
                         <simulate_data_collection/calculate_strategy> ,
                         <simulate_data_collection/log_rejected_sample> ,
                         <simulate_data_collection/collect_data_set> ,
                         <simulate_data_collection/transform_images> ,
-                        <simulate_data_collection/log_average_image_intensity> ,
-                        <simulate_data_collection/collect_next_image> ,
-                        <simulate_data_collection/transform_image> .
+                        <simulate_data_collection/log_average_image_intensity>.
 <simulate_data_collection#cassette_id_port>
     rdf:type                    p1:Port ;
     rdfs:label                  "simulate_data_collection" ;
@@ -68,7 +64,7 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
     
 #####################################################################################################################################
 #   simulate_data_collection                                                                                                        #
-#       load_screening_results                                                                                                      #
+#       initialize_run                                                                                                              #
 #####################################################################################################################################
 <simulate_data_collection/initialize_run>
     rdf:type            p1:Program ;
@@ -145,11 +141,41 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
                         <simulate_data_collection/calculate_strategy#rejectedsample_port> ;
     p1:hasOutPort       <simulate_data_collection/load_screening_results#rejection_log_port> .
 
+#####################################################################################################################################
+#   simulate_data_collection                                                                                                        #
+#       collect_data_set                                                                                                         #
+#####################################################################################################################################
+<simulate_data_collection/collect_data_set> 
+    rdf:type            p1:Program ;
+    rdfs:label          "collect_data_set" .
+
+#####################################################################################################################################
+#   simulate_data_collection                                                                                                        #
+#       transform_images                                                                                                         #
+#####################################################################################################################################
+<simulate_data_collection/transform_images>
+    rdf:type            p1:Program ;
+    rdfs:label          "transform_images" .
+
+#####################################################################################################################################
+#   simulate_data_collection                                                                                                        #
+#       log_average_image_intensity                                                                                                         #
+#####################################################################################################################################
+<simulate_data_collection/log_average_image_intensity>
+    rdf:type            p1:Program ;
+    rdfs:label          "log_average_image_intensity" .
+
+#####################################################################################################################################
+#   collect_next_image                                                                                                        #
+#####################################################################################################################################
 <collect_next_image>
     rdf:type            p1:Program ;
     rdf:type            yw:Function ;
     rdfs:label          "collect_next_image" .
 
+#####################################################################################################################################
+#   transform_image                                                                                                        #
+#####################################################################################################################################
 <transform_image>
     rdf:type            p1:Program ;
     rdf:type            yw:Function ;

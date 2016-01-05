@@ -11,6 +11,7 @@ WHERE
   ?program      rdf:type            p1:Program ;
                 rdfs:label          ?name .
                 
-  ?workflow p1:hasSubProgram ?program
+  ?workflow p1:hasSubProgram ?program.
+  
   FILTER NOT EXISTS { ?parentWorkflow p1:hasSubProgram ?workflow }
 }
