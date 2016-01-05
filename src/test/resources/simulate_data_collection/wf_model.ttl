@@ -32,18 +32,22 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
 <simulate_data_collection#cassette_id_port>
     rdf:type                    p1:Port ;
     rdfs:label                  "simulate_data_collection" ;
+    rdfs:comment                "The unique ID of the cassette containing the crystals." ;
     p1:connectsToChannel        <simulate_data_collection#cassette_id_channel> .
 <simulate_data_collection#sample_score_cutoff_port>
     rdf:type                    p1:Port ;
     rdfs:label                  "sample_score_cutoff" ;
+    rdfs:comment                "The minimum quality score required of crystals." ;
     p1:connectsToChannel        <simulate_data_collection#sample_score_cutoff_channel> .
 <simulate_data_collection#sample_spreadsheet_port>
     rdf:type                    p1:Port ;
     rdfs:label                  "sample_spreadsheet" ;
+    rdfs:comment                "CSV file giving quality score for each crystal." ;
     p1:connectsToChannel        <simulate_data_collection#sample_spreadsheet_channel> .
 <simulate_data_collection#calibration_image_port>
     rdf:type                    p1:Port ;
     rdfs:label                  "calibration_image" ;
+    rdfs:comment                "File used to correct raw diffraction images." ;
     p1:connectsToChannel        <simulate_data_collection#calibration_image_channel> .
 <simulate_data_collection#corrected_image_port>
     rdf:type                    p1:Port ;
@@ -143,7 +147,7 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
 
 #####################################################################################################################################
 #   simulate_data_collection                                                                                                        #
-#       collect_data_set                                                                                                         #
+#       collect_data_set                                                                                                            #
 #####################################################################################################################################
 <simulate_data_collection/collect_data_set> 
     rdf:type            p1:Program ;
@@ -151,7 +155,7 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
 
 #####################################################################################################################################
 #   simulate_data_collection                                                                                                        #
-#       transform_images                                                                                                         #
+#       transform_images                                                                                                            #
 #####################################################################################################################################
 <simulate_data_collection/transform_images>
     rdf:type            p1:Program ;
@@ -159,14 +163,14 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
 
 #####################################################################################################################################
 #   simulate_data_collection                                                                                                        #
-#       log_average_image_intensity                                                                                                         #
+#       log_average_image_intensity                                                                                                 #
 #####################################################################################################################################
 <simulate_data_collection/log_average_image_intensity>
     rdf:type            p1:Program ;
     rdfs:label          "log_average_image_intensity" .
 
 #####################################################################################################################################
-#   collect_next_image                                                                                                        #
+#   collect_next_image                                                                                                              #
 #####################################################################################################################################
 <collect_next_image>
     rdf:type            p1:Program ;
@@ -174,7 +178,7 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
     rdfs:label          "collect_next_image" .
 
 #####################################################################################################################################
-#   transform_image                                                                                                        #
+#   transform_image                                                                                                                 #
 #####################################################################################################################################
 <transform_image>
     rdf:type            p1:Program ;
