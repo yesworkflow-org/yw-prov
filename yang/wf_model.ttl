@@ -1,0 +1,198 @@
+## filename: wf_model.ttl
+
+BASE         <http://yesworkflow.org/0000000000/simulate_data_collection/>
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX p1:   <http://dataone.org/ns/provone#>
+PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
+
+#####################################################################################################################################
+#      simulate_data_collection                                                                                                     #
+#####################################################################################################################################
+<simulate_data_collection>
+    rdf:type            p1:Workflow ;
+    rdfs:label          "simulate_data_collection" ;
+    rdfs:comment        "Workflow for collecting diffraction data from high quality crystals in a cassette." ;
+    p1:hasInPort        <simulate_data_collection#cassette_id_port> ,
+                        <simulate_data_collection#sample_score_cutoff_port> ,
+                        <simulate_data_collection#data_redundancy_port> ,
+                        <simulate_data_collection#sample_spreadsheet_port> ,
+                        <simulate_data_collection#calibration_image_port> ;
+    p1:hasOutPort       <simulate_data_collection#corrected_image_port> ,
+                        <simulate_data_collection#run_log_port> ,
+                        <simulate_data_collection#collection_log_port> ,
+                        <simulate_data_collection#rejection_log_port> ;
+    p1:hasSubProgram    <simulate_data_collection/initialize_run> ,
+                        <simulate_data_collection/load_screening_results> ,
+                        <simulate_data_collection/calculate_strategy> ,
+                        <simulate_data_collection/log_rejected_sample> ,
+                        <simulate_data_collection/collect_data_set> ,
+                        <simulate_data_collection/transform_images> ,
+                        <simulate_data_collection/log_average_image_intensity>.
+<simulate_data_collection#cassette_id_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "cassette_id" ;
+    rdfs:comment                "The unique ID of the cassette containing the crystals." ;
+    p1:connectsToChannel        <simulate_data_collection#cassette_id_channel> .
+<simulate_data_collection#sample_score_cutoff_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "sample_score_cutoff" ;
+    rdfs:comment                "The minimum quality score required of crystals." ;
+    p1:connectsToChannel        <simulate_data_collection#sample_score_cutoff_channel> .
+<simulate_data_collection#data_redundancy_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "data_redundancy" ;
+    rdfs:comment                "The desired redundancy of the data sets collected." ;
+    p1:connectsToChannel        <simulate_data_collection#data_redundancy_channel> .
+<simulate_data_collection#sample_spreadsheet_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "sample_spreadsheet" ;
+    rdfs:comment                "CSV file giving quality score for each crystal." ;
+    p1:connectsToChannel        <simulate_data_collection#sample_spreadsheet_channel> .
+<simulate_data_collection#calibration_image_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "calibration_image" ;
+    rdfs:comment                "File used to correct raw diffraction images." ;
+    p1:connectsToChannel        <simulate_data_collection#calibration_image_channel> .
+<simulate_data_collection#corrected_image_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "corrected_image" ;
+    p1:connectsToChannel        <simulate_data_collection#corrected_image_channel> .
+<simulate_data_collection#run_log_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "run_log" ;
+    p1:connectsToChannel        <simulate_data_collection#run_log_channel> .
+<simulate_data_collection#collection_log_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "collection_log" ;
+    p1:connectsToChannel        <simulate_data_collection#collection_log_channel> .
+<simulate_data_collection#rejection_log_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "rejection_log" ;
+    p1:connectsToChannel        <simulate_data_collection#rejection_log_channel> .
+
+#####################################################################################################################################
+#   simulate_data_collection                                                                                                        #
+#       initialize_run                                                                                                              #
+#####################################################################################################################################
+<simulate_data_collection/initialize_run>
+    rdf:type            p1:Program ;
+    rdfs:label          "initialize_run" ;
+    rdfs:comment        "Create the run log file." ;
+    p1:hasOutPort       <simulate_data_collection/initialize_run#run_log_port> .
+<simulate_data_collection/initialize_run#run_log_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "run_log" ;
+    p1:connectsToChannel        <simulate_data_collection#run_log_channel> .
+
+#####################################################################################################################################
+#   simulate_data_collection                                                                                                        #
+#       load_screening_results                                                                                                      #
+#####################################################################################################################################
+<simulate_data_collection/load_screening_results>
+    rdf:type            p1:Program ;
+    rdfs:label          "load_screening_results" ;
+    rdfs:comment        "Load sample information from spreadsheet." ;
+    p1:hasInPort        <simulate_data_collection/load_screening_results#cassette_id_port> ,
+                        <simulate_data_collection/load_screening_results#sample_spreadsheet_port>  ;
+    p1:hasOutPort       <simulate_data_collection/load_screening_results#sample_name_port> ,
+                        <simulate_data_collection/load_screening_results#sample_quality_port> .
+<simulate_data_collection/load_screening_results#cassette_id_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "cassette_id" ;
+    p1:connectsToChannel        <simulate_data_collection#cassette_id_channel> .
+<simulate_data_collection/load_screening_results#cassette_id_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "run_log" ;
+    p1:connectsToChannel        <simulate_data_collection#cassette_id_channel> .
+<simulate_data_collection/load_screening_results#sample_name_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "sample_name" ;
+    p1:connectsToChannel        <simulate_data_collection#sample_name_channel> .
+<simulate_data_collection/load_screening_results#sample_quality_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "sample_quality" ;
+    p1:connectsToChannel        <simulate_data_collection#sample_quality_channel> .
+
+#####################################################################################################################################
+#   simulate_data_collection                                                                                                        #
+#       calculate_strategy                                                                                                          #
+#####################################################################################################################################
+<simulate_data_collection/calculate_strategy>
+    rdf:type            p1:Program ;
+    rdf:type            yw:Function ;
+    rdfs:label          "calculate_strategy" ;
+    rdfs:comment        "Reject unsuitable crystals and compute \n best data set to collect for accepted crystals." ;
+    p1:hasInPort        <simulate_data_collection/calculate_strategy#sample_score_cutoff_port> ,
+                        <simulate_data_collection/calculate_strategy#sample_name_port>,
+                        <simulate_data_collection/calculate_strategy#data_redundancy_port> ,
+                        <simulate_data_collection/calculate_strategy#sample_quality_port> .
+<simulate_data_collection/calculate_strategy#sample_name_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "sample_name" ;
+    p1:connectsToChannel        <simulate_data_collection#sample_name_channel> .
+<simulate_data_collection/calculate_strategy#sample_score_cutoff_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "sample_score_cutoff" ;
+    p1:connectsToChannel        <simulate_data_collection#sample_score_cutoff_channel> .
+<simulate_data_collection/calculate_strategy#data_redundancy_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "data_redundancy" ;
+    p1:connectsToChannel        <simulate_data_collection#data_redundancy_channel> .
+<simulate_data_collection/calculate_strategy#sample_quality_port>
+    rdf:type                    p1:Port ;
+    rdfs:label                  "sample_quality" ;
+    p1:connectsToChannel        <simulate_data_collection#sample_quality_channel> .
+
+#####################################################################################################################################
+#   simulate_data_collection                                                                                                        #
+#       log_rejected_sample                                                                                                         #
+#####################################################################################################################################
+<simulate_data_collection/log_rejected_sample>
+    rdf:type            p1:Program ;
+    rdfs:label          "log_rejected_sample" ;
+    rdfs:comment        "Record which samples were rejected." ;
+    p1:hasInPort        <simulate_data_collection/calculate_strategy#cassette_id_port> ,
+                        <simulate_data_collection/calculate_strategy#rejectedsample_port> ;
+    p1:hasOutPort       <simulate_data_collection/load_screening_results#rejection_log_port> .
+
+#####################################################################################################################################
+#   simulate_data_collection                                                                                                        #
+#       collect_data_set                                                                                                            #
+#####################################################################################################################################
+<simulate_data_collection/collect_data_set>
+    rdf:type            p1:Program ;
+    rdfs:label          "collect_data_set" .
+
+#####################################################################################################################################
+#   simulate_data_collection                                                                                                        #
+#       transform_images                                                                                                            #
+#####################################################################################################################################
+<simulate_data_collection/transform_images>
+    rdf:type            p1:Program ;
+    rdfs:label          "transform_images" .
+
+#####################################################################################################################################
+#   simulate_data_collection                                                                                                        #
+#       log_average_image_intensity                                                                                                 #
+#####################################################################################################################################
+<simulate_data_collection/log_average_image_intensity>
+    rdf:type            p1:Program ;
+    rdfs:label          "log_average_image_intensity" .
+
+#####################################################################################################################################
+#   collect_next_image                                                                                                              #
+#####################################################################################################################################
+<collect_next_image>
+    rdf:type            p1:Program ;
+    rdf:type            yw:Function ;
+    rdfs:label          "collect_next_image" .
+
+#####################################################################################################################################
+#   transform_image                                                                                                                 #
+#####################################################################################################################################
+<transform_image>
+    rdf:type            p1:Program ;
+    rdf:type            yw:Function ;
+    rdfs:label          "transform_image" .
