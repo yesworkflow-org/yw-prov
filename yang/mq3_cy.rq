@@ -1,5 +1,6 @@
-#  mq3:  What are the names of any top-level functions?
+#  mq3_cy:  What are the names of any top-level functions?
 
+BASE         <http://yesworkflow.org/0000000000/:>
 PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX p1:   <http://dataone.org/ns/provone#>
@@ -10,7 +11,7 @@ WHERE
 {
   {?function    rdf:type            yw:Function ;
                 rdf:type            p1:Program  ;
-                rdfs:label          ?name.
+                rdfs:label          ?name .
   FILTER NOT EXISTS { ?workflow p1:hasSubProgram ?function }
   }
 }
