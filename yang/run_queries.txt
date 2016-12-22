@@ -1,4 +1,13 @@
 
+mq1:  Where is the downstream outputs of block load_screening_results ?
+-----------------------------------------------------
+| o                                                 |
+=====================================================
+| <Base:initialize_run#run_log_port>                |
+| <Base:load_screening_results#sample_quality_port> |
+| <Base:load_screening_results#sample_name_port>    |
+-----------------------------------------------------
+
 mq2: What is the name and description of the top-level workflow?
 ---------------------------------------------------------------------------------------------------------------------
 | name                       | description                                                                          |
@@ -7,32 +16,31 @@ mq2: What is the name and description of the top-level workflow?
 ---------------------------------------------------------------------------------------------------------------------
 
 mq3: What are the names of any top-level functions?
-------------------------
-| name                 |
-========================
-| "transform_image"    |
-| "collect_next_image" |
-------------------------
+--------
+| name |
+========
+--------
 
 mq4: What are the names of the programs comprising the top-level workflow?
 ---------------------------------
 | name                          |
 =================================
-| "collect_data_set"            |
-| "initialize_run"              |
+| "log_average_image_intensity" |
 | "calculate_strategy"          |
-| "transform_images"            |
+| "collect_data_set"            |
 | "load_screening_results"      |
 | "log_rejected_sample"         |
-| "log_average_image_intensity" |
+| "transform_images"            |
+| "initialize_run"              |
 ---------------------------------
 
 mq5: What are the names and descriptions of the inputs to the top-level workflow?
------------------------------------------------------------------------------------------
-| name                       | description                                              |
-=========================================================================================
-| "calibration_image"        | "File used to correct raw diffraction images."           |
-| "sample_score_cutoff"      | "The minimum quality score required of crystals."        |
-| "simulate_data_collection" | "The unique ID of the cassette containing the crystals." |
-| "sample_spreadsheet"       | "CSV file giving quality score for each crystal."        |
------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+| name                  | description                                              |
+====================================================================================
+| "sample_score_cutoff" | "The minimum quality score required of crystals."        |
+| "data_redundancy"     | "The desired redundancy of the data sets collected."     |
+| "cassette_id"         | "The unique ID of the cassette containing the crystals." |
+| "sample_spreadsheet"  | "CSV file giving quality score for each crystal."        |
+| "calibration_image"   | "File used to correct raw diffraction images."           |
+------------------------------------------------------------------------------------
