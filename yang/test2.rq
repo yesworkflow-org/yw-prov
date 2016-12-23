@@ -1,0 +1,27 @@
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix : <http://stackoverflow.com/q/25256452/1281433/>
+
+#-- There are two way something with type :Person
+#-- can be invalid.  (i) it can lack a label, or 
+#-- have a label other than "Person";  (ii) it 
+#-- can have a value of foaf:knows* that doesn't
+#-- have rdf:type :Person.
+
+select ?person where {
+  #-- Examine each person in the graph.
+  ?person a :Person .
+
+  { #-- Check that ?person has a label, and that
+    #-- that it has no label other than "Person"
+    optional { ?person rdfs:label ?label } 
+    filter ( !bound(?label) || ?label != "Person" )
+  } UNION
+  { #-- Check that every value of foaf:knows 
+    #-- also has type :Person.  If some value
+    #-- has type :Person, but violates the constraints,
+    #-- we'll catch it separately.
+    ?person foaf:knows ?x .
+    filter not exists { ?x a :Person }
+  }
+}
+
