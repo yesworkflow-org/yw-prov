@@ -1,4 +1,4 @@
-# mq-test-3:  Where is the 2-level downstream outputs of block load_screening_results ?
+# mq-test-3:  List the sub-program which use the outputs of another subprogram.
 
 PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>

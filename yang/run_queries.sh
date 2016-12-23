@@ -15,6 +15,18 @@ arq --data wf_model-v2.ttl                                                     \
     --base http://yesworkflow.org/0000000000/simulate_data_collection/
 
 echo
+echo 'mq-test-3:  List the sub-program which use the outputs of another subprogram. '
+arq --data wf_model-v2.ttl                                                     \
+    --query mq-test-3.rq                                                          \
+    --base http://yesworkflow.org/0000000000/simulate_data_collection/
+
+echo
+echo 'mq-test-4:  Where is the 2-level downstream outputs of block load_screening_results ? '
+arq --data wf_model-v2.ttl                                                     \
+    --query mq-test-4.rq                                                          \
+    --base http://yesworkflow.org/0000000000/simulate_data_collection/
+
+echo
 echo 'mq1:  Where is the downstream outputs of block load_screening_results ?'
 arq --data wf_model-v2.ttl                                                     \
     --query mq1.rq                                                          \

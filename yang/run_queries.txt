@@ -126,12 +126,41 @@ mq-test-2:  Find the input ports of the subprogram in a workflow.
 | <http://yesworkflow.org/0000000000/simulate_data_collection> | <Base:initialize_run#sample_score_cutoff_port>        |
 ------------------------------------------------------------------------------------------------------------------------
 
+mq-test-3:  List the sub-program which use the outputs of another subprogram. 
+--------------------------------------------------------------------------------------------------------------------------
+| program1                      | out                                               | program2                           |
+==========================================================================================================================
+| <Base:load_screening_results> | <Base:load_screening_results#sample_quality_port> | <Base:calculate_strategy>          |
+| <Base:load_screening_results> | <Base:load_screening_results#sample_name_port>    | <Base:calculate_strategy>          |
+| <Base:transform_images>       | <Base:transform_images#total_intensity_port>      | <Base:log_average_image_intensity> |
+| <Base:transform_images>       | <Base:transform_images#corrected_image_port>      | <Base:log_average_image_intensity> |
+| <Base:transform_images>       | <Base:transform_images#pixel_count_port>          | <Base:log_average_image_intensity> |
+| <Base:calculate_strategy>     | <Base:calculate_strategy#rejected_sample_port>    | <Base:collect_data_set>            |
+| <Base:calculate_strategy>     | <Base:calculate_strategy#rejected_sample_port>    | <Base:log_rejected_sample>         |
+| <Base:calculate_strategy>     | <Base:calculate_strategy#num_images_port>         | <Base:collect_data_set>            |
+| <Base:calculate_strategy>     | <Base:calculate_strategy#accepted_sample_port>    | <Base:collect_data_set>            |
+| <Base:calculate_strategy>     | <Base:calculate_strategy#energies_port>           | <Base:collect_data_set>            |
+| <Base:collect_data_set>       | <Base:collect_data_set#raw_image_port>            | <Base:transform_images>            |
+| <Base:collect_data_set>       | <Base:collect_data_set#sample_id_port>            | <Base:log_average_image_intensity> |
+| <Base:collect_data_set>       | <Base:collect_data_set#sample_id_port>            | <Base:transform_images>            |
+| <Base:collect_data_set>       | <Base:collect_data_set#frame_number_port>         | <Base:log_average_image_intensity> |
+| <Base:collect_data_set>       | <Base:collect_data_set#frame_number_port>         | <Base:transform_images>            |
+--------------------------------------------------------------------------------------------------------------------------
+
+mq-test-4:  Where is the 2-level downstream outputs of block load_screening_results ? 
+-----------------------------------------------------------------------------------------------------------------
+| program1                      | out                                               | program2                  |
+=================================================================================================================
+| <Base:load_screening_results> | <Base:load_screening_results#sample_quality_port> | <Base:calculate_strategy> |
+| <Base:load_screening_results> | <Base:load_screening_results#sample_name_port>    | <Base:calculate_strategy> |
+-----------------------------------------------------------------------------------------------------------------
+
 mq1:  Where is the downstream outputs of block load_screening_results ?
 -----------------------------------------------------------------------------------------------------------------
 | program1                      | out                                               | program2                  |
 =================================================================================================================
-| <Base:load_screening_results> | <Base:load_screening_results#sample_name_port>    | <Base:calculate_strategy> |
 | <Base:load_screening_results> | <Base:load_screening_results#sample_quality_port> | <Base:calculate_strategy> |
+| <Base:load_screening_results> | <Base:load_screening_results#sample_name_port>    | <Base:calculate_strategy> |
 -----------------------------------------------------------------------------------------------------------------
 
 mq2: What is the name and description of the top-level workflow?
