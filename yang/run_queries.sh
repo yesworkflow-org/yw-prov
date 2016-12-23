@@ -9,6 +9,12 @@ arq --data wf_model-v2.ttl                                                     \
     --base http://yesworkflow.org/0000000000/simulate_data_collection/
 
 echo
+echo 'mq-test-2:  Find the input ports of the subprogram in a workflow.'
+arq --data wf_model-v2.ttl                                                     \
+    --query mq-test-2.rq                                                          \
+    --base http://yesworkflow.org/0000000000/simulate_data_collection/
+
+echo
 echo 'mq1:  Where is the downstream outputs of block load_screening_results ?'
 arq --data wf_model-v2.ttl                                                     \
     --query mq1.rq                                                          \

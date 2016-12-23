@@ -1,11 +1,13 @@
-# mq-test-1:  List the input ports and outpupt ports for each block.
+# mq-test-2:  Find the input ports of the subprogram in a workflow.
 
 PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX p1:   <http://dataone.org/ns/provone#>
 
-select  ?program2 ?in  ?out
+
+select  ?program2 ?in 
 where {
-  ?program2 p1:hasInPort ?in ;
-  			p1:hasOutPort ?out.
+  
+  ?program2 p1:hasSubProgram/p1:hasInPort ?in .
+  			
 }

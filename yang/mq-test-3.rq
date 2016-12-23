@@ -1,4 +1,4 @@
-# mq1:  Where is the 2-level downstream outputs of block load_screening_results ?
+# mq-test-3:  Where is the 2-level downstream outputs of block load_screening_results ?
 
 PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -6,7 +6,6 @@ PREFIX p1:   <http://dataone.org/ns/provone#>
 
 select  ?program1   ?out ?program2
 where {
-  ?program1 rdfs:label "load_screening_results";
-            p1:hasOutPort+ ?out .
+  ?program1 p1:hasOutPort+ ?out .
   ?program2 p1:hasInPort ?out .
 }
