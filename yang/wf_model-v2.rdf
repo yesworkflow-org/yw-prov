@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:ns0="http://dataone.org/ns/provone#">
+
+  <rdf:Description rdf:about="http://yesworkflow.org/0000000000/simulate_data_collection">
+    <rdf:type rdf:resource="http://dataone.org/ns/provone#Workflow"/>
+    <rdfs:label>simulate_data_collection</rdfs:label>
+    <rdfs:comment>Workflow for collecting diffraction data from high quality crystals in a cassette.</rdfs:comment>
+    <ns0:hasInPort>
+      <ns0:Port rdf:about="http://yesworkflow.org/0000000000/simulate_data_collection#cassette_id_port">
+        <rdfs:label>cassette_id</rdfs:label>
+        <rdfs:comment>The unique ID of the cassette containing the crystals.</rdfs:comment>
+        <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#cassette_id_channel"/>
+      </ns0:Port>
+    </ns0:hasInPort>
+
+    <ns0:hasInPort>
+      <ns0:Port rdf:about="http://yesworkflow.org/0000000000/simulate_data_collection#sample_score_cutoff_port">
+        <rdfs:label>sample_score_cutoff</rdfs:label>
+        <rdfs:comment>The minimum quality score required of crystals.</rdfs:comment>
+        <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#sample_score_cutoff_channel"/>
+      </ns0:Port>
+    </ns0:hasInPort>
+
+    <ns0:hasInPort>
+      <ns0:Port rdf:about="http://yesworkflow.org/0000000000/simulate_data_collection#data_redundancy_port">
+        <rdfs:label>data_redundancy</rdfs:label>
+        <rdfs:comment>The desired redundancy of the data sets collected.</rdfs:comment>
+        <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#data_redundancy_channel"/>
+      </ns0:Port>
+    </ns0:hasInPort>
+
+    <ns0:hasInPort>
+      <ns0:Port rdf:about="http://yesworkflow.org/0000000000/simulate_data_collection#sample_spreadsheet_port">
+        <rdfs:label>sample_spreadsheet</rdfs:label>
+        <rdfs:comment>CSV file giving quality score for each crystal.</rdfs:comment>
+        <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#sample_spreadsheet_channel"/>
+      </ns0:Port>
+    </ns0:hasInPort>
+
+    <ns0:hasInPort>
+      <ns0:Port rdf:about="http://yesworkflow.org/0000000000/simulate_data_collection#calibration_image_port">
+        <rdfs:label>calibration_image</rdfs:label>
+        <rdfs:comment>File used to correct raw diffraction images.</rdfs:comment>
+        <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#calibration_image_channel"/>
+      </ns0:Port>
+    </ns0:hasInPort>
+
+    <ns0:hasOutPort>
+      <ns0:Port rdf:about="http://yesworkflow.org/0000000000/simulate_data_collection#corrected_image_port">
+        <rdfs:label>corrected_image</rdfs:label>
+        <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#corrected_image_channel"/>
+      </ns0:Port>
+    </ns0:hasOutPort>
+
+    <ns0:hasOutPort>
+      <ns0:Port rdf:about="http://yesworkflow.org/0000000000/simulate_data_collection#run_log_port">
+        <rdfs:label>run_log</rdfs:label>
+        <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#run_log_channel"/>
+      </ns0:Port>
+    </ns0:hasOutPort>
+
+    <ns0:hasOutPort>
+      <ns0:Port rdf:about="http://yesworkflow.org/0000000000/simulate_data_collection#collection_log_port">
+        <rdfs:label>collection_log</rdfs:label>
+        <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#collection_log_channel"/>
+      </ns0:Port>
+    </ns0:hasOutPort>
+
+    <ns0:hasOutPort>
+      <ns0:Port rdf:about="http://yesworkflow.org/0000000000/simulate_data_collection#rejection_log_port">
+        <rdfs:label>rejection_log</rdfs:label>
+        <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#rejection_log_channel"/>
+      </ns0:Port>
+    </ns0:hasOutPort>
+
+    <ns0:hasSubProgram>
+      <ns0:Program rdf:about="Base:initialize_run">
+        <rdfs:label>initialize_run</rdfs:label>
+        <rdfs:comment>Create the run log file.</rdfs:comment>
+        <ns0:hasInPort rdf:resource="Base:initialize_run#sample_score_cutoff_port"/>
+        <ns0:hasOutPort rdf:resource="Base:initialize_run#run_log_port"/>
+      </ns0:Program>
+    </ns0:hasSubProgram>
+
+    <ns0:hasSubProgram>
+      <ns0:Program rdf:about="Base:load_screening_results">
+        <rdfs:label>load_screening_results</rdfs:label>
+        <rdfs:comment>Load sample information from spreadsheet.</rdfs:comment>
+        <ns0:hasInPort rdf:resource="Base:load_screening_results#cassette_id_port"/>
+        <ns0:hasInPort>
+          <ns0:Port rdf:about="Base:load_screening_results#sample_spreadsheet_port">
+            <rdfs:label>sample_spreadsheet</rdfs:label>
+            <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#sample_spreadsheet_channel"/>
+          </ns0:Port>
+        </ns0:hasInPort>
+
+        <ns0:hasOutPort rdf:resource="Base:load_screening_results#sample_name_port"/>
+        <ns0:hasOutPort rdf:resource="Base:initialize_run#run_log_port"/>
+        <ns0:hasOutPort rdf:resource="Base:load_screening_results#sample_quality_port"/>
+      </ns0:Program>
+    </ns0:hasSubProgram>
+
+    <ns0:hasSubProgram>
+      <ns0:Program rdf:about="Base:calculate_strategy">
+        <rdf:type rdf:resource="http://yesworkflow.org/ns/yesworkflowFunction"/>
+        <rdfs:label>calculate_strategy</rdfs:label>
+        <rdfs:comment>Reject unsuitable crystals and compute 
+ best data set to collect for accepted crystals.</rdfs:comment>
+        <ns0:hasInPort rdf:resource="Base:initialize_run#sample_score_cutoff_port"/>
+        <ns0:hasInPort rdf:resource="Base:load_screening_results#sample_name_port"/>
+        <ns0:hasInPort>
+          <ns0:Port rdf:about="Base:calculate_strategy#data_redundancy_port">
+            <rdfs:label>data_redundancy</rdfs:label>
+            <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#data_redundancy_channel"/>
+          </ns0:Port>
+        </ns0:hasInPort>
+
+        <ns0:hasInPort rdf:resource="Base:load_screening_results#sample_quality_port"/>
+        <ns0:hasOutPort rdf:resource="Base:calculate_strategy#energies_port"/>
+        <ns0:hasOutPort rdf:resource="Base:calculate_strategy#accepted_sample_port"/>
+        <ns0:hasOutPort rdf:resource="Base:calculate_strategy#num_images_port"/>
+        <ns0:hasOutPort rdf:resource="Base:calculate_strategy#rejected_sample_port"/>
+      </ns0:Program>
+    </ns0:hasSubProgram>
+
+    <ns0:hasSubProgram>
+      <ns0:Program rdf:about="Base:log_rejected_sample">
+        <rdfs:label>log_rejected_sample</rdfs:label>
+        <rdfs:comment>Record which samples were rejected.</rdfs:comment>
+        <ns0:hasInPort rdf:resource="Base:load_screening_results#cassette_id_port"/>
+        <ns0:hasInPort rdf:resource="Base:calculate_strategy#rejected_sample_port"/>
+        <ns0:hasOutPort rdf:resource="Base:load_screening_results#rejection_log_port"/>
+      </ns0:Program>
+    </ns0:hasSubProgram>
+
+    <ns0:hasSubProgram>
+      <ns0:Program rdf:about="Base:collect_data_set">
+        <rdfs:label>collect_data_set</rdfs:label>
+        <ns0:hasInPort rdf:resource="Base:calculate_strategy#energies_port"/>
+        <ns0:hasInPort rdf:resource="Base:calculate_strategy#accepted_sample_port"/>
+        <ns0:hasInPort rdf:resource="Base:calculate_strategy#num_images_port"/>
+        <ns0:hasInPort rdf:resource="Base:calculate_strategy#rejected_sample_port"/>
+        <ns0:hasOutPort>
+          <ns0:Port rdf:about="Base:collect_data_set#energy_port">
+            <rdfs:label>energy_log</rdfs:label>
+            <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#energy_channel"/>
+          </ns0:Port>
+        </ns0:hasOutPort>
+
+        <ns0:hasOutPort rdf:resource="Base:collect_data_set#raw_image_port"/>
+        <ns0:hasOutPort rdf:resource="Base:collect_data_set#frame_number_port"/>
+        <ns0:hasOutPort rdf:resource="Base:collect_data_set#sample_id_port"/>
+        <ns0:hasOutPort rdf:resource="Base:initialize_run#run_log_port"/>
+      </ns0:Program>
+    </ns0:hasSubProgram>
+
+    <ns0:hasSubProgram>
+      <ns0:Program rdf:about="Base:transform_images">
+        <rdfs:label>transform_images</rdfs:label>
+        <ns0:hasInPort rdf:resource="Base:collect_data_set#energies_port"/>
+        <ns0:hasInPort rdf:resource="Base:collect_data_set#raw_image_port"/>
+        <ns0:hasInPort rdf:resource="Base:collect_data_set#frame_number_port"/>
+        <ns0:hasInPort rdf:resource="Base:collect_data_set#sample_id_port"/>
+        <ns0:hasInPort>
+          <ns0:Port rdf:about="Base:transform_images#calibration_image_port">
+            <rdfs:label>calibration_image</rdfs:label>
+            <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#calibration_image_channel"/>
+          </ns0:Port>
+        </ns0:hasInPort>
+
+        <ns0:hasOutPort rdf:resource="Base:transform_images#corrected_image_port"/>
+        <ns0:hasOutPort rdf:resource="Base:transform_images#total_intensity_port"/>
+        <ns0:hasOutPort rdf:resource="Base:transform_images#pixel_count_port"/>
+        <ns0:hasOutPort rdf:resource="Base:initialize_run#run_log_port"/>
+      </ns0:Program>
+    </ns0:hasSubProgram>
+
+    <ns0:hasSubProgram>
+      <ns0:Program rdf:about="Base:log_average_image_intensity">
+        <rdfs:label>log_average_image_intensity</rdfs:label>
+        <ns0:hasInPort rdf:resource="Base:transform_images#corrected_image_port"/>
+        <ns0:hasInPort rdf:resource="Base:transform_images#total_intensity_port"/>
+        <ns0:hasInPort rdf:resource="Base:transform_images#pixel_count_port"/>
+        <ns0:hasInPort rdf:resource="Base:collect_data_set#frame_number_port"/>
+        <ns0:hasInPort rdf:resource="Base:collect_data_set#sample_id_port"/>
+        <ns0:hasInPort rdf:resource="Base:load_screening_results#cassette_id_port"/>
+        <ns0:hasOutPort>
+          <ns0:Port rdf:about="Base:log_average_image_intensity#collection_log_port">
+            <rdfs:label>collection_log</rdfs:label>
+            <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#collection_log_channel"/>
+          </ns0:Port>
+        </ns0:hasOutPort>
+
+      </ns0:Program>
+    </ns0:hasSubProgram>
+
+  </rdf:Description>
+
+  <ns0:Port rdf:about="Base:initialize_run#sample_score_cutoff_port">
+    <rdfs:label>sample_score_cutoff</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#sample_score_cutoff_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:initialize_run#run_log_port">
+    <rdfs:label>run_log</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#run_log_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:load_screening_results#cassette_id_port">
+    <rdfs:label>cassette_id</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#cassette_id_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:load_screening_results#sample_name_port">
+    <rdfs:label>sample_name</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#sample_name_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:load_screening_results#sample_quality_port">
+    <rdfs:label>sample_quality</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#sample_quality_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:calculate_strategy#energies_port">
+    <rdfs:label>energies</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#energies_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:calculate_strategy#accepted_sample_port">
+    <rdfs:label>accepted_sample</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#accepted_sample_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:calculate_strategy#num_images_port">
+    <rdfs:label>num_images</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#num_images_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:calculate_strategy#rejected_sample_port">
+    <rdfs:label>rejected_sample</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#rejected_sample_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:log_rejected_sample#rejection_log_port">
+    <rdfs:label>rejected_log</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#rejected_log_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:collect_data_set#raw_image_port">
+    <rdfs:label>raw_image</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#raw_image_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:collect_data_set#frame_number_port">
+    <rdfs:label>frame_number</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#frame_number_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:collect_data_set#sample_id_port">
+    <rdfs:label>sample_id</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#sample_id_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:transform_images#corrected_image_port">
+    <rdfs:label>corrected_image</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#corrected_image_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:transform_images#total_intensity_port">
+    <rdfs:label>total_intensity</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#total_intensity_channel"/>
+  </ns0:Port>
+
+  <ns0:Port rdf:about="Base:transform_images#pixel_count_port">
+    <rdfs:label>pixel_count</rdfs:label>
+    <ns0:connectsToChannel rdf:resource="http://yesworkflow.org/0000000000/simulate_data_collection#pixel_count_channel"/>
+  </ns0:Port>
+
+</rdf:RDF>

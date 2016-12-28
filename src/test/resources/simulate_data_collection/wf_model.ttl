@@ -65,7 +65,7 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
     rdf:type                    p1:Port ;
     rdfs:label                  "rejection_log" ;
     p1:connectsToChannel        <simulate_data_collection#rejection_log_channel> .
-    
+
 #####################################################################################################################################
 #   simulate_data_collection                                                                                                        #
 #       initialize_run                                                                                                              #
@@ -110,7 +110,7 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
     p1:connectsToChannel        <simulate_data_collection#sample_quality_channel> .
 
 #####################################################################################################################################
-#   simulate_data_collection                                                                                                        # 
+#   simulate_data_collection                                                                                                        #
 #       calculate_strategy                                                                                                          #
 #####################################################################################################################################
 <simulate_data_collection/calculate_strategy>
@@ -149,7 +149,7 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
 #   simulate_data_collection                                                                                                        #
 #       collect_data_set                                                                                                            #
 #####################################################################################################################################
-<simulate_data_collection/collect_data_set> 
+<simulate_data_collection/collect_data_set>
     rdf:type            p1:Program ;
     rdfs:label          "collect_data_set" .
 
@@ -184,4 +184,3 @@ PREFIX yw:   <http://yesworkflow.org/ns/yesworkflow>
     rdf:type            p1:Program ;
     rdf:type            yw:Function ;
     rdfs:label          "transform_image" .
-
